@@ -1,19 +1,21 @@
-function init() {
+function initForm() {
   var formTemplate = document.getElementById("recipe-form-template").innerHTML
-  //put any page initialization/handlebars initialization here
+  var template = Handlebars.compile(formTemplate)
+  document.getElementsByTagName("main")[0].innerHTML = template({'submitAction': 'createRecipe()'})
 }
+
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
   init()
 })
 
-var createRecipe = {
-  description: 'yummy chicken noodle soup',
-  ingredients: [
-    {quantity: "1 cup", name: 'chicken'},
-    {quantity: "3 nanoliters", name: 'stock'},
-    {quantity: "12", name: 'noodles'}
-  ]
+function createRecipe() {
+  var recipe = getRecipeVals()
+  var recipeTemplate = document.getElementById("recipe-template").innerHTML
+  var template = Handlebars.compile(recipeTemplate)
+  document.getElementById("main").innerHTML = template(recipe)
 }
- 
+
 var template = Handlebars.compile(document.getElementById("my-template").innerHTML);
 var html = template(recipe);
