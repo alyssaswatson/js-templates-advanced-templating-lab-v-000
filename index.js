@@ -1,21 +1,18 @@
-function initForm() {
-  var formTemplate = document.getElementById("recipe-form-template").innerHTML
-  var template = Handlebars.compile(formTemplate)
-  document.getElementsByTagName("main")[0].innerHTML = template({'submitAction': 'createRecipe()'})
+function init() {
+  //put any page initialization/handlebars initialization here
 }
 
+function createRecipe() {
+    var recipeTemplate = Handlebars.compile(document.getElementById("recipe-template").innerHTML);
+    var name = document.getElementById("name").value;
+    var description = document.getElementById("description").value;
 
+    var ingredientList = Array.from(document.getElementsByName("ingredients"));
+    var allIngredients = ingredientList.map(obj => obj.value);
+    var ingredients = allIngredients.filter(obj => obj !== "");
+    document.getElementsByTagName("main")[0].innerHTML = recipeTemplate({'name': name, 'description': description, 'ingredients': ingredients}); 
+}
 
 document.addEventListener("DOMContentLoaded", function(event) {
   init()
 })
-
-function createRecipe() {
-  var recipe = getRecipeVals()
-  var recipeTemplate = document.getElementById("recipe-template").innerHTML
-  var template = Handlebars.compile(recipeTemplate)
-  document.getElementById("main").innerHTML = template(recipe)
-}
-
-var template = Handlebars.compile(document.getElementById("my-template").innerHTML);
-var html = template(recipe);
